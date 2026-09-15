@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>轰趴计划 · 五店对照</title>
+  <title>轰趴计划 · 六店对照</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -20,6 +20,7 @@
       --sq: #e05a6a;
       --mq: #e08a4a;
       --sc: #6aa8ff;
+      --hg: #c1121f;
     }
     * { box-sizing: border-box; }
     html { scroll-padding-top: 72px; }
@@ -86,7 +87,7 @@
     .section { margin-top: 56px; }
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 20px; }
     .compare-wrap { overflow: auto; }
-    .compare-table { width: 100%; min-width: 980px; border-collapse: collapse; font-size: 13px; }
+    .compare-table { width: 100%; min-width: 1140px; border-collapse: collapse; font-size: 13px; }
     .compare-table th, .compare-table td { border-bottom: 1px solid var(--line); padding: 12px 10px; vertical-align: top; text-align: left; }
     .compare-table th { color: var(--muted); font-weight: 500; }
     .compare-table tr:hover td { background: rgba(244,236,223,.04); }
@@ -95,6 +96,7 @@
     .accent-sq { color: var(--sq); }
     .accent-mq { color: var(--mq); }
     .accent-sc { color: var(--sc); }
+    .accent-hg { color: var(--hg); }
 
     .quiz { background: var(--bg2); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
     .q-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
@@ -155,7 +157,7 @@
     <div class="wrap">
       <a class="brand" href="#home">
         <b>轰趴计划</b>
-        <span>Five Houses</span>
+        <span>Six Houses</span>
       </a>
       <div class="nav-links">
         <a href="#home" data-nav="home">总览</a>
@@ -165,6 +167,7 @@
         <a href="#sq" data-nav="sq">BOOM 双桥</a>
         <a href="#mq" data-nav="mq">BOOM 马泉营</a>
         <a href="#sc" data-nav="sc">SCZONE</a>
+        <a href="#hg" data-nav="hg">红馆</a>
       </div>
     </div>
   </nav>
@@ -174,11 +177,11 @@
       <div class="hero">
         <div>
           <div class="kicker">BEIJING PARTY HOUSES</div>
-          <h1>五家店<br />都按 10 人算</h1>
-          <p class="lede">回声两家按周五至周日 218 元/人；BOOM 两家按周一至周四，场地 238 + 餐 98；SCZONE 10 人场地一口价 3000。点卡片进馆，或先对照、「帮我选」。</p>
+          <h1>六家店<br />都按 10 人算</h1>
+          <p class="lede">回声两家按周五至周日 218 元/人；BOOM 两家按周一至周四，场地 238 + 餐 98；SCZONE 10 人场地一口价 3000；红馆 198 元/人，10 人 1980。点卡片进馆，或先对照、「帮我选」。</p>
         </div>
         <aside class="hero-aside">
-          曦月 / 望京 2180 · BOOM 双桥 / 马泉营 3360 含餐 · SCZONE 场地 3000，餐另计。<br />
+          红馆 1980 · 曦月 / 望京 2180 · SCZONE 场地 3000 · BOOM 双桥 / 马泉营 3360 含餐。<br />
           价格、档期以预订确认为准。
         </aside>
       </div>
@@ -229,6 +232,15 @@
             <div class="price">10 人 3000 元</div>
           </div>
         </button>
+        <button class="card" onclick="go('hg')">
+          <img src="img/red-v2.jpg" alt="红馆" />
+          <div class="pad">
+            <div class="tag">海淀永丰路 · 约 400㎡</div>
+            <h2>红馆</h2>
+            <p>轻美式。酒水零食水果不限量。10 人刚好踩到最低消费。</p>
+            <div class="price">10 人 1980 元</div>
+          </div>
+        </button>
       </div>
 
       <div class="bill">
@@ -257,6 +269,11 @@
           <div class="n">3000</div>
           <p>场地固定价。火锅 3380 / 烤串 3680 / 双拼 3880 另计。</p>
         </button>
+        <button class="bill article" onclick="go('hg')">
+          <div class="tag accent-hg">红馆 · 10 人</div>
+          <div class="n">1980</div>
+          <p>198 × 10，手册最低消费就是 1980。餐可另升 358 / 458 / 598。</p>
+        </button>
       </div>
     </div>
   </section>
@@ -265,13 +282,14 @@
     <div class="wrap">
       <div class="kicker">DIFFERENCE</div>
       <h3>先看差别，再点进馆</h3>
-      <p class="lede">五家都能包场唱 K、打麻将、打主机。分开的是：主题出片、含不含餐、要不要两层大场或室外足球。</p>
+      <p class="lede">六家都能包场唱 K、打麻将、打主机。分开的是：主题出片、含不含餐、海淀还是朝阳、要不要两层大场或室外足球。</p>
       <div class="chips" id="filters">
         <button class="chip on" data-filter="all">全部</button>
         <button class="chip" data-filter="xy">看中魔法主题</button>
         <button class="chip" data-filter="wj">看中轻奢打卡</button>
         <button class="chip" data-filter="sq">看中两层含餐</button>
         <button class="chip" data-filter="sc">看中电竞足球</button>
+        <button class="chip" data-filter="hg">看中海淀最低价</button>
       </div>
       <div class="compare-wrap">
         <table class="compare-table" id="cmp">
@@ -283,17 +301,18 @@
               <th class="accent-sq">BOOM 双桥</th>
               <th class="accent-mq">BOOM 马泉营</th>
               <th class="accent-sc">SCZONE</th>
+              <th class="accent-hg">红馆</th>
             </tr>
           </thead>
           <tbody>
-            <tr data-win="xy"><th>一句话</th><td>望京 SOHO 旁 HP 美式 LOFT</td><td>801 室轻奢，棱镜 + 滑梯</td><td>南洋文创园 700 平两层</td><td>马泉营红白游戏厅</td><td>崔各庄 500 平霓虹馆 + 室外足球</td></tr>
-            <tr data-win="wj"><th>位置</th><td>临望京 SOHO</td><td>阜通西大街 10 号楼 801；合生麒麟社 5 号楼</td><td>朝阳区南洋文创园 A1-1</td><td>马泉营（资料未写门牌）</td><td>崔各庄 335 文创园东 03，近望京 / 798 / 酒仙桥</td></tr>
-            <tr data-win="sq"><th>空间</th><td>320㎡，50 人</td><td>320㎡，40 人</td><td>700㎡ / 150 人；一楼 40 人，二楼 110 人</td><td>视频可见台球、街机、桌上足球大厅</td><td>500㎡，15–120 人；另有 11 人制真草足球场</td></tr>
-            <tr data-win="xy"><th>10 人价</th><td>2180（周五至周日 218×10）</td><td>2180（同上）</td><td>3360（周一至周四 238+98）×10</td><td>3360（同上）</td><td>3000 场地固定价</td></tr>
-            <tr data-win="sq"><th>含什么</th><td>软饮零食畅吃、专职管家</td><td>同左</td><td>6 小时包场 + 98 餐（任选 1–2 种拼）</td><td>同左</td><td>6 小时设备畅玩；酒水零食畅饮畅吃。正餐另计</td></tr>
-            <tr data-win="sc"><th>正餐</th><td>资料未标价</td><td>资料未标价</td><td>已含 98。火锅 9 选 2，4 人一锅定量</td><td>同左</td><td>火锅 3380 / 烤串 3680 / 双拼 3880</td></tr>
-            <tr><th>时段</th><td>日 10:00–16:00，夜 17:00–23:00</td><td>日 10:00–16:00，夜 17:30–23:30</td><td>日 10:00–16:00，晚 18:00–24:00（可微调）</td><td>同左</td><td>10–16 / 17–23 / 18–24</td></tr>
-            <tr data-win="wj"><th>风格</th><td>HP、英伦长桌、9¾</td><td>金色书架、棱镜、茶室、滑梯</td><td>一楼工业风，二楼艺术 ins</td><td>红顶白墙、弧形灯带电视墙</td><td>蓝粉霓虹、月球灯、舞台舞池</td></tr>
+            <tr data-win="xy"><th>一句话</th><td>望京 SOHO 旁 HP 美式 LOFT</td><td>801 室轻奢，棱镜 + 滑梯</td><td>南洋文创园 700 平两层</td><td>马泉营红白游戏厅</td><td>崔各庄 500 平霓虹馆 + 室外足球</td><td>海淀永丰路轻美式轰趴</td></tr>
+            <tr data-win="wj"><th>位置</th><td>临望京 SOHO</td><td>阜通西大街 10 号楼 801；合生麒麟社 5 号楼</td><td>朝阳区南洋文创园 A1-1</td><td>马泉营（资料未写门牌）</td><td>崔各庄 335 文创园东 03，近望京 / 798 / 酒仙桥</td><td>海淀区永丰路用友产业区北区 17 号楼麦颂 KTV 楼下</td></tr>
+            <tr data-win="sq"><th>空间</th><td>320㎡，50 人</td><td>320㎡，40 人</td><td>700㎡ / 150 人；一楼 40 人，二楼 110 人</td><td>视频可见台球、街机、桌上足球大厅</td><td>500㎡，15–120 人；另有 11 人制真草足球场</td><td>约 400㎡，0–60 人</td></tr>
+            <tr data-win="hg"><th>10 人价</th><td>2180（周五至周日 218×10）</td><td>2180（同上）</td><td>3360（周一至周四 238+98）×10</td><td>3360（同上）</td><td>3000 场地固定价</td><td>1980（198×10，最低消费 1980）</td></tr>
+            <tr data-win="sq"><th>含什么</th><td>软饮零食畅吃、专职管家</td><td>同左</td><td>6 小时包场 + 98 餐（任选 1–2 种拼）</td><td>同左</td><td>6 小时设备畅玩；酒水零食畅饮畅吃。正餐另计</td><td>6 小时；酒水饮料零食水果不限量；拍立得</td></tr>
+            <tr data-win="sc"><th>正餐</th><td>资料未标价</td><td>资料未标价</td><td>已含 98。火锅 9 选 2，4 人一锅定量</td><td>同左</td><td>火锅 3380 / 烤串 3680 / 双拼 3880</td><td>可选升级 358 / 458 / 598 餐</td></tr>
+            <tr><th>时段</th><td>日 10:00–16:00，夜 17:00–23:00</td><td>日 10:00–16:00，夜 17:30–23:30</td><td>日 10:00–16:00，晚 18:00–24:00（可微调）</td><td>同左</td><td>10–16 / 17–23 / 18–24</td><td>9–15 / 10–16 / 11–17 / 18–24</td></tr>
+            <tr data-win="wj"><th>风格</th><td>HP、英伦长桌、9¾</td><td>金色书架、棱镜、茶室、滑梯</td><td>一楼工业风，二楼艺术 ins</td><td>红顶白墙、弧形灯带电视墙</td><td>蓝粉霓虹、月球灯、舞台舞池</td><td>轻美式；会议用餐区 + 霓虹 KTV</td></tr>
           </tbody>
         </table>
       </div>
@@ -330,8 +349,8 @@
           <p class="lede">玩：升降麻将、街机、Switch / PS5 / Xbox、乔氏台球、桌上足球、魔法吟唱厅 KTV、9¾ 站台打卡。</p>
         </div>
         <div class="pros">
-          <div class="pro"><b>优势 1 · 主题</b>五家里唯一哈利波特 / 9¾。</div>
-          <div class="pro"><b>优势 2 · 10 人价</b>2180，含零食软饮，五家场地里最低。</div>
+          <div class="pro"><b>优势 1 · 主题</b>六家里唯一哈利波特 / 9¾。</div>
+          <div class="pro"><b>优势 2 · 10 人价</b>2180，含零食软饮，和望京同价。</div>
           <div class="pro"><b>优势 3 · 管家</b>专职跟场。</div>
         </div>
       </div>
@@ -411,7 +430,7 @@
           <p class="lede">这次按周一至周四白天 6 小时：场地 238 + 餐 98 = 336 元/人，10 人 3360。餐是定量套餐不是自助，主推新派火锅 9 选 2，4 人一锅。白天 10:00–16:00，晚场 18:00–24:00 可微调。</p>
         </div>
         <div class="pros">
-          <div class="pro"><b>优势 1 · 含餐</b>五家里报价直接把 98 餐算进去。</div>
+          <div class="pro"><b>优势 1 · 含餐</b>六家里报价直接把 98 餐算进去。</div>
           <div class="pro"><b>优势 2 · 两层</b>10 人可走一楼，设备齐。</div>
           <div class="pro"><b>优势 3 · 项目多</b>电竞、影院、KTV×2、麻将×3、台球×2。</div>
         </div>
@@ -507,7 +526,7 @@
         <div class="pros">
           <div class="pro"><b>优势 1 · 固定价</b>10 人场地就是 3000，不用乘人头。</div>
           <div class="pro"><b>优势 2 · 酒水含上</b>啤酒饮料零食写进畅玩。</div>
-          <div class="pro"><b>优势 3 · 室外足球</b>五家里唯一真草 11 人制。</div>
+          <div class="pro"><b>优势 3 · 室外足球</b>六家里唯一真草 11 人制。</div>
         </div>
       </div>
       <div class="section">
@@ -531,6 +550,65 @@
           <button onclick="zoom(this)"><img src="img/sc-m08.jpg" alt="桌上冰球" /></button>
           <button onclick="zoom(this)"><img src="img/sc-m16.jpg" alt="Super Crazy Zone" /></button>
           <button onclick="zoom(this)"><img src="img/sc-m19.jpg" alt="飞镖" /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="hg">
+    <div class="wrap">
+      <button class="btn ghost back" onclick="go('home')">← 返回总览</button>
+      <div class="venue-hero">
+        <img src="img/red-v2.jpg" alt="红馆" />
+        <div class="cap">
+          <div class="kicker">HONG GUAN · YONGFENG</div>
+          <h1>红馆</h1>
+          <p>永丰路用友产业区 · 约 400㎡ · 10 人 1980</p>
+        </div>
+      </div>
+      <div class="meta">
+        <span>海淀区永丰路用友产业区北区 17 号楼麦颂 KTV 楼下</span>
+        <span>约 400㎡ · 0–60 人</span>
+        <span>订场 18613870817</span>
+      </div>
+      <div class="grid-2 section">
+        <div>
+          <h3>馆的具体介绍</h3>
+          <p class="lede">红馆轰趴 · RED 团建永丰路店。手册写轻美式，本店 2025 年开。198 元/位，6 小时，酒水饮料零食水果不限量，含拍立得。10 人起订，最低消费 1980，正好是这次 10 人账单。</p>
+          <p class="lede">玩：超清屏、舞台灯光、专业 KTV（雷克音响联网点歌）、SWITCH / 双人 PS5、复古街机、桌上足球、美式台球、麻将、棋牌、德州、狼人杀、趣味投篮、旋转 VR。会议用餐区可排长桌。</p>
+        </div>
+        <div class="pros">
+          <div class="pro"><b>优势 1 · 10 人价</b>1980，六家里最低。</div>
+          <div class="pro"><b>优势 2 · 含水果酒水</b>基础套餐就把酒水零食水果写进不限量。</div>
+          <div class="pro"><b>优势 3 · 海淀</b>六家里唯一写在海淀永丰路的店。</div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>点手册看空间</h3>
+        <div class="floors" id="hg-floors"></div>
+        <img class="floor-shot" id="hg-img" src="img/red-p12.jpg" alt="" />
+        <p class="lede" id="hg-txt"></p>
+      </div>
+      <div class="section">
+        <h3>10 人怎么算</h3>
+        <table class="price-table">
+          <tr><td>198 / 位 · 6 小时</td><td>含酒水饮料零食水果不限量、拍立得</td></tr>
+          <tr><td>10 人</td><td>1980 元（手册最低消费）</td></tr>
+          <tr><td>升含餐五选一</td><td>358 / 人（10 人 3580）</td></tr>
+          <tr><td>升四选一餐</td><td>458 / 人</td></tr>
+          <tr><td>升增值五选二 + 山姆蛋糕甜品台</td><td>598 / 人</td></tr>
+        </table>
+        <p class="note">手册没有把工作日和周末拆开报价。时段可选 9:00–15:00、10:00–16:00、11:00–17:00、18:00–24:00。</p>
+      </div>
+      <div class="section">
+        <h3>店内照片</h3>
+        <div class="gallery">
+          <button onclick="zoom(this)"><img src="img/red-v1.jpg" alt="大厅台球" /></button>
+          <button onclick="zoom(this)"><img src="img/red-v2.jpg" alt="用餐区" /></button>
+          <button onclick="zoom(this)"><img src="img/red-v3.jpg" alt="场馆" /></button>
+          <button onclick="zoom(this)"><img src="img/red-p13.jpg" alt="会议用餐区" /></button>
+          <button onclick="zoom(this)"><img src="img/red-p10.jpg" alt="KTV" /></button>
+          <button onclick="zoom(this)"><img src="img/red-p05.jpg" alt="投篮台球桌游" /></button>
         </div>
       </div>
     </div>
@@ -561,17 +639,26 @@
       { id: "娱乐清单", img: "img/boom-p21.jpg", t: "娱乐项目", d: "电竞、娃娃机×2、街机×2、麻将×3、台球×2、KTV×2、影院、室内高尔夫。" },
       { id: "包场费", img: "img/boom-p30.jpg", t: "周一至周四价", d: "6 小时白天 238/人。这次 10 人再加 98 餐 = 3360。" }
     ];
+    const hgPages = [
+      { id: "用餐区", img: "img/red-p12.jpg", t: "会议用餐区", d: "长桌、环形灯、投影。约 400㎡，0–60 人。" },
+      { id: "位置", img: "img/red-p11.jpg", t: "永丰路店", d: "海淀区永丰路用友产业区北区 17 号楼麦颂 KTV 楼下。轻美式。" },
+      { id: "设施", img: "img/red-p04.jpg", t: "娱乐设施", d: "KTV、SWITCH / PS5、街机、桌上足球、美式台球、麻将、投篮、旋转 VR。" },
+      { id: "玩法", img: "img/red-p14.jpg", t: "娱乐项目", d: "暖场、投篮、VR、桌游、剧本、狼人杀。" },
+      { id: "报价", img: "img/red-p16.jpg", t: "198 / 位", d: "6 小时，酒水零食水果不限量。10 人起订，最低 1980。" },
+      { id: "增值", img: "img/red-p23.jpg", t: "可选增值", d: "团建老师 1500、摄影 3000 起、布置 2000 起、大巴 1500 往返 15km。非必选。" }
+    ];
     const quiz = [
       { q: "这场更像什么？", opts: [
         { t: "哈利波特风，想出片", v: "xy" },
         { t: "轻奢打卡，棱镜滑梯", v: "wj" },
         { t: "两层工业风，餐算进报价", v: "sq" },
         { t: "马泉营一层游戏厅", v: "mq" },
-        { t: "霓虹电竞，还能踢足球", v: "sc" }
+        { t: "霓虹电竞，还能踢足球", v: "sc" },
+        { t: "海淀轻美式，账单压到最低", v: "hg" }
       ]},
       { q: "10 人怎么花钱最舒服？", opts: [
-        { t: "场地尽量便宜，零食就行", v: "xy" },
-        { t: "同一价，但要 801 室打卡", v: "wj" },
+        { t: "场地尽量便宜，酒水果盘就够", v: "hg" },
+        { t: "多两百换 HP / 望京出片", v: "xy" },
         { t: "含 98 火锅，一次算清", v: "sq" },
         { t: "场地一口价 3000，餐再另点", v: "sc" }
       ]},
@@ -580,16 +667,18 @@
         { t: "麒麟社 801 / 滑梯", v: "wj" },
         { t: "南洋文创园两层", v: "sq" },
         { t: "马泉营", v: "mq" },
-        { t: "崔各庄 + 真草球场", v: "sc" }
+        { t: "崔各庄 + 真草球场", v: "sc" },
+        { t: "海淀永丰路 / 用友产业区", v: "hg" }
       ]}
     ];
-    const names = { xy: "曦月回声", wj: "回声望京店", sq: "BOOM 双桥", mq: "BOOM 马泉营", sc: "SCZONE" };
+    const names = { xy: "曦月回声", wj: "回声望京店", sq: "BOOM 双桥", mq: "BOOM 马泉营", sc: "SCZONE", hg: "红馆" };
     const why = {
-      xy: "HP LOFT，10 人 2180，五家场地里最低。含零食软饮。",
+      xy: "HP LOFT，10 人 2180。含零食软饮。",
       wj: "棱镜滑梯茶室，地址最清楚。10 人同样 2180。",
       sq: "700 平两层，周一至周四 10 人 3360 已含 98 餐。",
       mq: "和双桥同一套 3360，一层铺开台球和街机。",
-      sc: "10 人场地固定 3000，酒水零食含上，外面有 11 人制足球场。餐另算。"
+      sc: "10 人场地固定 3000，酒水零食含上，外面有 11 人制足球场。餐另算。",
+      hg: "10 人 1980，六家里最低。含酒水零食水果不限量和拍立得。海淀永丰路。"
     };
 
     function go(view) {
@@ -640,8 +729,9 @@
     bindPages("xy-floors", "xy-img", "xy-txt", xyPages);
     bindPages("wj-floors", "wj-img", "wj-txt", wjPages);
     bindPages("sq-floors", "sq-img", "sq-txt", sqPages);
+    bindPages("hg-floors", "hg-img", "hg-txt", hgPages);
 
-    let step = 0, score = { xy: 0, wj: 0, sq: 0, mq: 0, sc: 0 };
+    let step = 0, score = { xy: 0, wj: 0, sq: 0, mq: 0, sc: 0, hg: 0 };
     const grid = document.getElementById("q-grid");
     const qLabel = document.getElementById("q-label");
     const qResult = document.getElementById("q-result");
@@ -664,7 +754,7 @@
         grid.appendChild(b);
       });
     }
-    function resetQ() { step = 0; score = { xy: 0, wj: 0, sq: 0, mq: 0, sc: 0 }; drawQ(); }
+    function resetQ() { step = 0; score = { xy: 0, wj: 0, sq: 0, mq: 0, sc: 0, hg: 0 }; drawQ(); }
     drawQ();
 
     function zoom(btn) {
