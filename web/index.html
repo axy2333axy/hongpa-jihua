@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>轰趴计划 · 三馆对照</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #100e0c;
+      --bg2: #1c1713;
+      --paper: #f4ecdf;
+      --ink: #161310;
+      --muted: #b6a898;
+      --line: rgba(244, 236, 223, .14);
+      --hy: #d06a45;
+      --srx: #c9a56a;
+      --xxb: #e0b125;
+      --ok: #d7c4a3;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 72px; }
+    html, body { margin: 0; background: var(--bg); color: var(--paper); font-family: "Noto Sans SC", sans-serif; }
+    body { min-height: 100vh; }
+    a { color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+    img, video { max-width: 100%; display: block; }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(16,14,12,.78);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--line);
+    }
+    nav .wrap {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 14px 0; flex-wrap: wrap;
+    }
+    .brand { display: flex; flex-direction: column; line-height: 1.1; text-decoration: none; }
+    .brand b { font-family: "Noto Serif SC", serif; font-size: 18px; letter-spacing: .12em; }
+    .brand span { font-size: 11px; letter-spacing: .28em; color: var(--muted); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-links a, .chip, .btn {
+      border: 1px solid var(--line); background: transparent; color: var(--paper);
+      text-decoration: none; padding: 7px 11px; border-radius: 999px; font-size: 12px;
+      white-space: nowrap;
+    }
+    .nav-links a.on, .chip.on { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+    .btn.solid { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+    .btn.ghost { background: transparent; }
+
+    .view { display: none; padding: 28px 0 80px; }
+    .view.on { display: block; }
+
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: end; padding: 36px 0 20px; }
+    .kicker { letter-spacing: .32em; font-size: 12px; color: var(--muted); }
+    h1 { font-family: "Noto Serif SC", serif; font-weight: 600; font-size: clamp(36px, 6vw, 72px); line-height: 1.08; margin: 10px 0 16px; }
+    .lede { font-size: 16px; line-height: 1.8; color: #e7dccb; max-width: 42em; }
+    .hero-aside { color: var(--muted); font-size: 13px; line-height: 1.9; border-left: 1px solid var(--line); padding-left: 20px; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; }
+    .card {
+      position: relative; isolation: isolate; min-height: 460px; overflow: hidden;
+      border: 0; padding: 0; text-align: left; color: #fff; border-radius: 18px;
+      background: #000; display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .card img, .card video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+    .card::after {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, transparent 28%, rgba(0,0,0,.82) 100%);
+    }
+    .card:hover img, .card:hover video { transform: scale(1.04); }
+    .card img, .card video { transition: transform .6s ease; }
+    .card .pad { padding: 22px; }
+    .tag { font-size: 11px; letter-spacing: .2em; opacity: .85; }
+    .card h2 { font-family: "Noto Serif SC", serif; margin: 6px 0 8px; font-size: 28px; }
+    .card p { margin: 0; color: #f0e6d6; font-size: 14px; line-height: 1.6; }
+    .price { margin-top: 12px; font-family: "Cormorant Garamond", serif; font-size: 22px; }
+    .bill { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+    .bill article { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 18px; cursor: pointer; text-align: left; color: inherit; width: 100%; }
+    .bill .n { font-family: "Cormorant Garamond", serif; font-size: 32px; margin: 6px 0; }
+    .bill p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    h3 { font-family: "Noto Serif SC", serif; font-size: 28px; margin: 0 0 12px; }
+    .section { margin-top: 56px; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 20px; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .compare-table th, .compare-table td { border-bottom: 1px solid var(--line); padding: 14px 12px; vertical-align: top; text-align: left; }
+    .compare-table th { color: var(--muted); font-weight: 500; }
+    .compare-table td.win { color: #fff; }
+    .compare-table tr:hover td { background: rgba(244,236,223,.04); }
+    .accent-hy { color: var(--hy); }
+    .accent-srx { color: var(--srx); }
+    .accent-xxb { color: var(--xxb); }
+
+    .quiz { background: var(--bg2); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+    .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .q-grid button {
+      background: #2a241e; color: var(--paper); border: 1px solid var(--line);
+      border-radius: 14px; padding: 16px; text-align: left; min-height: 86px;
+    }
+    .q-grid button:hover, .q-grid button.on { border-color: var(--paper); background: #3a3229; }
+    .result { display: none; margin-top: 18px; padding: 18px; border-radius: 14px; background: var(--paper); color: var(--ink); }
+    .result.on { display: block; }
+
+    .venue-hero { position: relative; min-height: 58vh; border-radius: 24px; overflow: hidden; margin-bottom: 28px; }
+    .venue-hero img, .venue-hero video { width: 100%; height: 58vh; object-fit: cover; }
+    .venue-hero .cap {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 28px;
+      background: linear-gradient(transparent, rgba(0,0,0,.78));
+    }
+    .venue-hero h1 { font-size: clamp(32px, 5vw, 60px); margin: 8px 0; }
+    .meta { display: flex; gap: 18px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+    .grid-2 { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; }
+    .pros { display: grid; gap: 10px; }
+    .pro { padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg2); }
+    .pro b { display: block; margin-bottom: 4px; }
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .gallery button { padding: 0; border: 0; background: none; border-radius: 12px; overflow: hidden; }
+    .gallery img { width: 100%; height: 160px; object-fit: cover; }
+    .floors { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+    .floors button { border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--paper); padding: 10px 14px; }
+    .floors button.on { background: var(--paper); color: var(--ink); }
+    .floor-shot { width: 100%; height: 340px; object-fit: cover; border-radius: 16px; }
+    .menu-shot { width: 100%; border-radius: 16px; }
+    .price-table { width: 100%; border-collapse: collapse; }
+    .price-table td, .price-table th { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14px; }
+    .play-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+    .play { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 13px; }
+    .play .hot { height: 4px; background: #2c261f; border-radius: 99px; margin-top: 8px; overflow: hidden; }
+    .play .hot i { display: block; height: 100%; background: var(--xxb); }
+    .note { color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .back { margin-bottom: 16px; display: inline-flex; }
+
+    #lightbox {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 40;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    #lightbox.on { display: flex; }
+    #lightbox img { max-width: min(92vw, 1100px); max-height: 90vh; object-fit: contain; }
+
+    @media (max-width: 900px) {
+      .hero, .cards, .grid-2, .q-grid, .gallery, .bill { grid-template-columns: 1fr; }
+      .card { min-height: 340px; }
+      .hero-aside { border: 0; padding: 0; }
+      .compare-wrap { overflow: auto; }
+      .compare-table { min-width: 720px; }
+      .floor-shot, .venue-hero img, .venue-hero video { height: 42vh; }
+      .venue-hero { min-height: 42vh; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#home">
+        <b>轰趴计划</b>
+        <span>Three Houses</span>
+      </a>
+      <div class="nav-links">
+        <a href="#home" data-nav="home">总览</a>
+        <a href="#compare" data-nav="compare">对照</a>
+        <a href="#hy" data-nav="hy">欢院</a>
+        <a href="#srx" data-nav="srx">叁人行</a>
+        <a href="#xxb" data-nav="xxb">熊熊邦</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="view on" data-view="home">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <div class="kicker">BEIJING PARTY HOUSES</div>
+          <h1>三场派对<br />三种活法</h1>
+          <p class="lede">这次一共 10 个人。欢院是银河 SOHO 里的岩洞花房；叁人行是豆各庄四层独栋别墅；熊熊邦是海淀北三环、有社牛轰趴师盯场的游戏矩阵。点进任意一馆看细节，或先用对照和「帮我选」。</p>
+        </div>
+        <aside class="hero-aside">
+          按 10 人对照：欢院场地约 3700（餐另计），叁人行 2380 含餐，熊熊邦 2080（正餐另计）。<br />
+          价格、档期与餐标以实际预订确认为准。
+        </aside>
+      </div>
+
+      <div class="cards">
+        <button class="card" onclick="go('hy')">
+          <img src="img/hy-hero.jpg" alt="欢院莫奈花园岩洞花墙" />
+          <div class="pad">
+            <div class="tag">东城 · 银河 SOHO</div>
+            <h2>欢院 · 莫奈花园</h2>
+            <p>岩洞花房、200 寸舞台、独立 KTV。市中心出片，会议和派对可以同一场。</p>
+            <div class="price">10 人场地约 3700 元，餐另计</div>
+          </div>
+        </button>
+        <button class="card" onclick="go('srx')">
+          <img src="img/srx-roof.jpg" alt="叁人行四楼露台" />
+          <div class="pad">
+            <div class="tag">朝阳 · 豆各庄别墅</div>
+            <h2>叁人行</h2>
+            <p>四层楼从会议室一路玩到屋顶烧烤。10 人内含餐含酒水，整栋包下来。</p>
+            <div class="price">10 人 2380 元含餐含酒水</div>
+          </div>
+        </button>
+        <button class="card" onclick="go('xxb')">
+          <video src="img/xxb-video.mp4" muted loop playsinline autoplay></video>
+          <div class="pad">
+            <div class="tag">海淀 · 北三环</div>
+            <h2>熊熊邦 6.0</h2>
+            <p>36 项娱乐 + 老板亲自带流程。适合彼此还不熟的公司团建。</p>
+            <div class="price">10 人 2080 元</div>
+          </div>
+        </button>
+      </div>
+
+      <div class="bill">
+        <button class="bill article" onclick="go('hy')">
+          <div class="tag accent-hy">欢院 · 10 人</div>
+          <div class="n">3700</div>
+          <p>场地包场，含啤酒饮料零食。餐要另点，披萨 60 / 火锅 80 / 海鲜烧烤火锅 100 元一位。</p>
+        </button>
+        <button class="bill article" onclick="go('srx')">
+          <div class="tag accent-srx">叁人行 · 10 人</div>
+          <div class="n">2380</div>
+          <p>整栋包场，火锅 / 烤肉 / 烧烤三选一，菜品不限量，酒水畅饮。</p>
+        </button>
+        <button class="bill article" onclick="go('xxb')">
+          <div class="tag accent-xxb">熊熊邦 · 10 人</div>
+          <div class="n">2080</div>
+          <p>一口价，含零食饮料和集体游戏。正餐可隔壁餐厅端进场。</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="compare">
+    <div class="wrap">
+      <div class="kicker">DIFFERENCE</div>
+      <h3>先看差别，再点进馆</h3>
+      <p class="lede">三家都能包场、都能唱 K、都能玩游戏。真正分开的是：要不要出片、要不要一栋楼、要不要有人带着玩、餐算不算在场地上。</p>
+
+      <div class="chips" id="filters">
+        <button class="chip on" data-filter="all">全部</button>
+        <button class="chip" data-filter="hy">看中出片 / 位置</button>
+        <button class="chip" data-filter="srx">看中整栋 / 含餐</button>
+        <button class="chip" data-filter="xxb">看中带玩 / 人均</button>
+      </div>
+
+      <div class="compare-wrap">
+        <table class="compare-table" id="cmp">
+          <thead>
+            <tr>
+              <th>对照项</th>
+              <th class="accent-hy">欢院 · 莫奈花园</th>
+              <th class="accent-srx">叁人行</th>
+              <th class="accent-xxb">熊熊邦 6.0</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-win="hy"><th>一句话</th><td>市中心岩洞花房，轻奢出片</td><td>四层独栋别墅，吃住玩分层</td><td>社牛轰趴师 + 超多娱乐，防冷场</td></tr>
+            <tr data-win="hy"><th>位置</th><td>东城银河 SOHO A 座 2 层 10210</td><td>朝阳豆各庄宇达创意中心 23 号楼 101</td><td>海淀北三环三环网络科技大厦 2011</td></tr>
+            <tr data-win="srx"><th>空间</th><td>室内约 400㎡ 一层大厅 + 功能区</td><td>4 层独栋：会议 / 游戏 / 娱乐 / 露台</td><td>一次只接一波人的独立包场</td></tr>
+            <tr><th>人数</th><td>可接 15–50 人；这次按 10 人对照</td><td>这次 10 人，餐厅最大约 50 人</td><td>这次 10 人</td></tr>
+            <tr data-win="hy"><th>风格</th><td>岩洞花房、鲜花、镜面舞台</td><td>别墅美学 + 京都茶室 + 屋顶花园</td><td>游戏厅 / Livehouse / 手作工坊</td></tr>
+            <tr data-win="hy"><th>核心优势</th><td>银河 SOHO、出片、舞台会议一体</td><td>整栋分层、含餐畅饮、屋顶烧烤、免费摄影</td><td>老板带流程、36 项娱乐、人均清楚</td></tr>
+            <tr data-win="srx"><th>餐食</th><td>场地费不含餐，可代订披萨 / 火锅 / 海鲜烧烤 / 西餐 / 烤全羊</td><td>10 人内套餐含餐：火锅、烤肉、烧烤三选一，菜品不限量</td><td>零食饮料无限；正餐可隔壁餐厅端进场</td></tr>
+            <tr data-win="hy"><th>酒水零食</th><td>场地费含啤酒饮料零食不限量，进口啤酒可 +30 元/人</td><td>套餐含酒水饮料畅饮</td><td>含零食饮料；店内畅饮 +30 元/人，自带酒 +10 元保洁</td></tr>
+            <tr data-win="xxb"><th>主持流程</th><td>包场自嗨，设备齐</td><td>可提供剧本杀主持 + 免费活动策划</td><td>成熟轰趴流程 + 社牛老板兼职轰趴师</td></tr>
+            <tr data-win="xxb"><th>娱乐密度</th><td>VR 蛋椅、PS5、Switch、街机、娃娃机、麻将、桌游、桌上足球</td><td>VR、拳皇、德州、剧本杀、麻将×2、KTV、台球、撸猫、露台烧烤</td><td>主机两千款游戏、体感舞、赛车、录音棚、高达乐高拼走、乐队舞台等 36 项</td></tr>
+            <tr data-win="xxb"><th>计费</th><td>按场包场，餐另计</td><td>小局按场含餐</td><td>这次 10 人一口价</td></tr>
+            <tr data-win="xxb"><th>10 人价格</th><td>场地约 3700 元，餐另计；加时 800 元/小时</td><td>2380 元含餐含酒水</td><td>2080 元，含零食饮料，正餐另计</td></tr>
+            <tr data-win="hy"><th>时段</th><td>早场 10:00–16:00，晚场 18:00–24:00，可微调</td><td>整栋包场，适合一天玩开</td><td>周五至周日算周末档</td></tr>
+            <tr data-win="hy"><th>交通停车</th><td>紧邻东二环朝阳门；银河 SOHO INN 地库约 8 元/小时</td><td>朝阳豆各庄，更适合自驾到别墅</td><td>海淀北三环，市区通勤团建方便</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section quiz">
+        <div class="kicker">PICKER</div>
+        <h3>帮我选一个馆</h3>
+        <p class="note" id="q-label">1 / 3 · 这场更像什么？</p>
+        <div class="q-grid" id="q-grid"></div>
+        <div class="result" id="q-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="hy">
+    <div class="wrap">
+      <button class="btn ghost back" onclick="go('home')">← 返回总览</button>
+      <div class="venue-hero">
+        <img src="img/hy-hero.jpg" alt="欢院莫奈花园" />
+        <div class="cap">
+          <div class="kicker">HUANYUAN PARTY</div>
+          <h1>欢院 · 莫奈花园</h1>
+          <p>东二环店 · 岩洞花房主题</p>
+        </div>
+      </div>
+      <div class="meta">
+        <span>东城区银河 SOHO A座2层10210</span>
+        <span>约 400㎡ · 15–50 人</span>
+        <span>15250780230</span>
+        <span>微信 QFSG518</span>
+      </div>
+      <div class="grid-2 section">
+        <div>
+          <h3>馆的具体介绍</h3>
+          <p class="lede">欢院把岩洞和花房叠在银河 SOHO 二层。室内约 400 平，一次只做包场，适合 15 到 50 人的团建、派对、会议、求婚。轻奢会议区大约 40 人可以同时开会吃饭；独立舞台区有 200 寸液晶大屏和会议级音响话筒。旁边就是朝阳门、东单、三里屯、国贸，出片和通勤都按市中心来。</p>
+          <p class="lede">场地费不含餐，但含啤酒、饮料、零食小吃不限量。啤酒可加 30 元/人升级科罗娜、百威、福佳白、朝日等进口款。红酒白酒请自带。</p>
+        </div>
+        <div class="pros">
+          <div class="pro"><b>优势 1 · 位置</b>地标建筑里，地铁公交方便，客户和领导都好找到。</div>
+          <div class="pro"><b>优势 2 · 出片</b>红色岩壁、鲜花、镜面舞台，是三馆里最「能发朋友圈」的空间。</div>
+          <div class="pro"><b>优势 3 · 会+趴</b>先开会再上台，设备和桌席不用换地方。</div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>空间与娱乐</h3>
+        <div class="gallery">
+          <button onclick="zoom(this)"><img src="img/hy-hall.jpg" alt="大厅" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-cave.jpg" alt="岩洞走廊" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-dine.jpg" alt="聚餐会议区" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-stage.jpg" alt="舞台" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-ktv.jpg" alt="KTV" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-vr.jpg" alt="VR" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-game.jpg" alt="主机游戏" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-arcade.jpg" alt="街机" /></button>
+          <button onclick="zoom(this)"><img src="img/hy-claw.jpg" alt="娃娃机" /></button>
+        </div>
+        <p class="note">独立 KTV（雷客点歌）、乐客 VR 蛋椅、PS5 / Switch、街机、免费娃娃机、多台自动麻将、狼人杀 / UNO 等桌游、桌上足球。馆内另有宣传视频可看。</p>
+        <video src="img/hy-video.mp4" controls playsinline style="width:100%;border-radius:16px;margin-top:12px"></video>
+      </div>
+      <div class="section grid-2">
+        <div>
+          <h3>代订餐饮</h3>
+          <table class="price-table">
+            <tr><td>现烤披萨套餐</td><td>60 元 / 人</td></tr>
+            <tr><td>火锅套餐，内蒙牛羊肉不限量</td><td>80 元 / 人</td></tr>
+            <tr><td>海鲜烧烤 + 火锅，羊肉不限量</td><td>100 元 / 人</td></tr>
+            <tr><td>自助西餐</td><td>238–338 元 / 人</td></tr>
+            <tr><td>烤全羊 20–30 斤（约 12–15 人）</td><td>2380 元 / 只，赠凉菜烤馕</td></tr>
+          </table>
+        </div>
+        <div>
+          <h3>预订规则</h3>
+          <p class="note">早场 10:00–16:00，晚场 18:00–24:00，时间可微调。只做包场，起价随人数变。以支付定金为准，活动日前 10 天可退改，10 天内定金不退，可协助转让档期。加时 800 元/小时。停车推荐银河 SOHO INN 地库，约 8 元/小时。3 岁以下免费；原则上不带宠物。合作餐饮需提前一天预订单人数，结束以确定人数为准。</p>
+          <p class="note">资料中的包场参考价：3700 元 / 场。地图搜「莫奈花园轰趴馆」。</p>
+        </div>
+      </div>
+      <div class="section gallery">
+        <button onclick="zoom(this)"><img src="img/hy-pizza.jpg" alt="披萨菜单" /></button>
+        <button onclick="zoom(this)"><img src="img/hy-hotpot.jpg" alt="火锅菜单" /></button>
+        <button onclick="zoom(this)"><img src="img/hy-bbq.jpg" alt="海鲜烧烤菜单" /></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="srx">
+    <div class="wrap">
+      <button class="btn ghost back" onclick="go('home')">← 返回总览</button>
+      <div class="venue-hero">
+        <img src="img/srx-dine.jpg" alt="叁人行餐厅" />
+        <div class="cap">
+          <div class="kicker">VILLA HOUSE</div>
+          <h1>叁人行别墅轰趴馆</h1>
+          <p>朝阳豆各庄 · 四层独栋</p>
+        </div>
+      </div>
+      <div class="meta">
+        <span>朝阳区豆各庄宇达创意中心 23 号楼 101</span>
+        <span>4 层独栋</span>
+        <span>10 人内包场 2380 含餐含酒水</span>
+      </div>
+      <div class="grid-2 section">
+        <div>
+          <h3>馆的具体介绍</h3>
+          <p class="lede">叁人行是四层独栋「殿堂式」体验：一楼开会吃饭，二楼桌游电玩，三楼麻将 KTV 台球撸猫，四楼露台烧烤看日落。10 人内包场 2380 元，餐在火锅、烤肉、烧烤里三选一，菜品不限量，酒水饮料畅饮。店内可上剧本杀主持和免费活动策划，并有摄影师拍氛围照。</p>
+        </div>
+        <div class="pros">
+          <div class="pro"><b>优势 1 · 整栋分层</b>会议和嗨歌不抢同一间房，人多也不挤在一个大厅。</div>
+          <div class="pro"><b>优势 2 · 餐酒打包</b>小局价格清楚，不用再单算餐标。</div>
+          <div class="pro"><b>优势 3 · 露台 + 猫</b>四楼出片，三楼有赛级布偶、虎斑驻场。</div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>点楼层看空间</h3>
+        <div class="floors" id="floors"></div>
+        <img class="floor-shot" id="floor-img" src="img/srx-dine.jpg" alt="楼层照片" />
+        <p class="lede" id="floor-txt"></p>
+      </div>
+      <div class="section">
+        <h3>含餐菜单 · 菜品不限量</h3>
+        <div class="gallery">
+          <button onclick="zoom(this)"><img src="img/srx-menu-hotpot.jpg" alt="火锅菜单" /></button>
+          <button onclick="zoom(this)"><img src="img/srx-menu-grill.jpg" alt="烤肉菜单" /></button>
+          <button onclick="zoom(this)"><img src="img/srx-menu-bbq.jpg" alt="烧烤菜单" /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="xxb">
+    <div class="wrap">
+      <button class="btn ghost back" onclick="go('home')">← 返回总览</button>
+      <div class="venue-hero">
+        <video src="img/xxb-video.mp4" muted loop playsinline autoplay controls></video>
+        <div class="cap">
+          <div class="kicker">XIONGXIONGBANG 6.0</div>
+          <h1>熊熊邦轰趴馆</h1>
+          <p>周末豪华版公司团建</p>
+        </div>
+      </div>
+      <div class="meta">
+        <span>海淀区北三环三环网络科技大厦 2011</span>
+        <span>13031080650 同微信</span>
+        <span>10 人 2080 元</span>
+      </div>
+      <div class="grid-2 section">
+        <div>
+          <h3>馆的具体介绍</h3>
+          <p class="lede">熊熊邦 6.0 把自己的优势写得很直：新奇娱乐多、内容多、集体游戏多，性价比高。如果来的人彼此还不熟，务必提前说——这馆靠「社牛老板兼职轰趴师」和成熟流程防冷场，受欢迎度他们自己标到 95%。适合公司员工。参观和包场都要提前一天预约。</p>
+          <p class="lede">零食饮料无限供应。不需要零食饮料可减 10 元/人。正餐走隔壁餐厅，端盘进场。啤酒鸡尾酒 30 元/人无限畅饮；自带酒则加 10 元/人保洁，选了店内畅饮就不再收保洁费。</p>
+        </div>
+        <div class="pros">
+          <div class="pro"><b>优势 1 · 有人带玩</b>不是把设备丢给你，而是按岗位属性排活动。</div>
+          <div class="pro"><b>优势 2 · 这次报价</b>10 人 2080 元，约 208 元/人，含零食饮料和集体游戏。</div>
+          <div class="pro"><b>优势 3 · 能带走</b>高达、乐高、拼图、拼豆、手办涂绘，拼好画好免费带走。</div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>这次 10 人报价</h3>
+        <table class="price-table">
+          <tr><td>10 人整场</td><td>2080 元</td></tr>
+          <tr><td>折合人均</td><td>208 元</td></tr>
+          <tr><td>含</td><td>零食饮料无限、集体游戏、轰趴师流程</td></tr>
+          <tr><td>不含</td><td>正餐（隔壁餐厅可端进场）；畅饮酒水可 +30 元/人</td></tr>
+        </table>
+        <p class="note">资料里其他人数档仍是阶梯价：15–19 人 5 小时 218 元/人，20–50 人 208 元/人。续 1 小时 40 元/人，最少 400 元/小时。乐队演出 +300 元，提前 3 天。客户饮酒后只安排乐队，不再安排集体游戏。周五到周日算周末。参观和包场提前一天预约。</p>
+      </div>
+      <div class="section">
+        <h3>36 项娱乐 · 按热度看</h3>
+        <div class="chips" id="play-filters">
+          <button class="chip on" data-play="all">全部</button>
+          <button class="chip" data-play="host">流程主持</button>
+          <button class="chip" data-play="game">机台游戏</button>
+          <button class="chip" data-play="craft">手作带走</button>
+          <button class="chip" data-play="stage">舞台演出</button>
+          <button class="chip" data-play="group">集体游戏</button>
+        </div>
+        <div class="play-list" id="plays"></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="lightbox" onclick="this.classList.remove('on')"><img alt="" /></div>
+
+  <script>
+    const floors = [
+      { id: "1F", img: "img/srx-dine.jpg", t: "1F 高级美学会议中心", d: "极简会议厅（超大显示屏）、开放式厨房（德国 Miele 厨电）、可容纳约 50 人的餐厅，以及京都老铺同款茶室。" },
+      { id: "2F", img: "img/srx-poker.jpg", t: "2F 赛博朋克游戏矩阵", d: "VR 太空舱、1983 年初代拳皇框体、德州扑克、狼人杀与剧本杀、桌上足球与桌游、榻榻米全景电影房。" },
+      { id: "3F", img: "img/srx-pool.jpg", t: "3F 超现实娱乐共同体", d: "全自动麻将机 ×2、JBL 专业 K 歌房、锦标赛用台球桌、撸猫房（布偶、虎斑等赛级猫驻场）。" },
+      { id: "4F", img: "img/srx-roof.jpg", t: "4F 星空穹顶烧烤圣殿", d: "智能烧烤系统、屋顶花园超大露台，日落出片位。" }
+    ];
+    const plays = [
+      { g: "host", n: "成熟轰趴流程", h: 100, s: "必须得，防止冷场" },
+      { g: "host", n: "社牛老板兼职轰趴师", h: 95, s: "这点非常重要" },
+      { g: "host", n: "桌游教学 / 狼人杀法官", h: 55, s: "" },
+      { g: "host", n: "占星术 + 塔罗牌", h: 93, s: "" },
+      { g: "game", n: "百种桌游", h: 35, s: "" },
+      { g: "game", n: "正规台球", h: 65, s: "" },
+      { g: "game", n: "正规乒乓球", h: 69, s: "" },
+      { g: "game", n: "KTV 包间", h: 58, s: "" },
+      { g: "game", n: "麻将", h: 55, s: "" },
+      { g: "game", n: "PS5 / Switch / Xbox 等主机", h: 60, s: "实体 2000+ 数字 800+" },
+      { g: "game", n: "体感舞蹈 Just Dance", h: 75, s: "5 秒上手" },
+      { g: "game", n: "赛车机", h: 65, s: "达成就送奖" },
+      { g: "game", n: "手疾眼快", h: 58, s: "达成就送奖" },
+      { g: "game", n: "扭蛋机", h: 50, s: "达成就送奖" },
+      { g: "game", n: "海洋球", h: 50, s: "" },
+      { g: "game", n: "电脑五连坐", h: 60, s: "网吧系统" },
+      { g: "game", n: "PS5 VR", h: 45, s: "" },
+      { g: "game", n: "5D VR 蛋椅", h: 40, s: "" },
+      { g: "game", n: "猫屋", h: 50, s: "2 只，随便撸" },
+      { g: "game", n: "空气桌球", h: 55, s: "" },
+      { g: "game", n: "沙狐球", h: 49, s: "" },
+      { g: "craft", n: "录音棚 + 调音师", h: 68, s: "录单曲赠数字版" },
+      { g: "craft", n: "正版高达 MG 拼好带走", h: 76, s: "不要钱" },
+      { g: "craft", n: "乐高拼好带走", h: 74, s: "" },
+      { g: "craft", n: "拼图赠相框带走", h: 75, s: "" },
+      { g: "craft", n: "涂绘手办画好带走", h: 68, s: "" },
+      { g: "craft", n: "插花带走", h: 50, s: "需提前说" },
+      { g: "craft", n: "拼豆带走", h: 80, s: "工具超全" },
+      { g: "game", n: "有奖软弹枪", h: 85, s: "" },
+      { g: "stage", n: "Livehouse 舞台 + LED + 灯光", h: 90, s: "可上台唱" },
+      { g: "stage", n: "世界级音响", h: 90, s: "" },
+      { g: "stage", n: "吉他贝斯鼓合成器", h: 83, s: "可用可教学" },
+      { g: "stage", n: "乐队演出", h: 80, s: "+300 元，提前 3 天" },
+      { g: "host", n: "专业摄影", h: 65, s: "免费合照" },
+      { g: "group", n: "有奖集体游戏 · 天赋猜谜", h: 100, s: "10–25 人" },
+      { g: "group", n: "有奖集体游戏 · 运动会版", h: 90, s: "25–50 人" }
+    ];
+    const quiz = [
+      { q: "这场更像什么？", opts: [
+        { t: "朋友生日 / 求婚出片", v: "hy" },
+        { t: "一伙人包栋楼吃到饱", v: "srx" },
+        { t: "公司团建，怕冷场", v: "xxb" }
+      ]},
+      { q: "你最不能让步的是？", opts: [
+        { t: "位置好、照片好看", v: "hy" },
+        { t: "空间分层、餐已经含上", v: "srx" },
+        { t: "有人带着玩、人均好算", v: "xxb" }
+      ]},
+      { q: "大概多少人？", opts: [
+        { t: "十人上下的精致局", v: "srx" },
+        { t: "十五到三十，要场面", v: "hy" },
+        { t: "二十人以上的部门团建", v: "xxb" }
+      ]}
+    ];
+    const names = { hy: "欢院 · 莫奈花园", srx: "叁人行别墅", xxb: "熊熊邦 6.0" };
+    const why = {
+      hy: "市中心岩洞花房，舞台和会议可以连着开，适合要场面、要出片的场。",
+      srx: "四层独栋把吃饭、游戏、猫咪和露台摊开，十人内含餐含酒，适合想「包下一整栋」的局。",
+      xxb: "老板盯场、集体游戏，你们 10 人报价 2080 元，适合彼此还不熟、又要把团建打满的公司。"
+    };
+
+    function go(view) {
+      history.replaceState(null, "", "#" + view);
+      show(view);
+    }
+    function show(view) {
+      document.getElementById("lightbox").classList.remove("on");
+      document.querySelectorAll(".view").forEach(v => {
+        const on = v.dataset.view === view;
+        v.classList.toggle("on", on);
+        v.toggleAttribute("inert", !on);
+        v.querySelectorAll("video").forEach(vid => {
+          if (on && vid.hasAttribute("autoplay")) vid.play().catch(() => {});
+          else vid.pause();
+        });
+      });
+      document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", a.dataset.nav === view));
+      window.scrollTo(0, 0);
+    }
+    window.addEventListener("hashchange", () => show((location.hash || "#home").slice(1)));
+    show((location.hash || "#home").slice(1));
+
+    document.querySelectorAll("#filters .chip").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll("#filters .chip").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        const f = btn.dataset.filter;
+        document.querySelectorAll("#cmp tbody tr").forEach(tr => {
+          tr.style.opacity = (f === "all" || tr.dataset.win === f || !tr.dataset.win) ? "1" : ".35";
+        });
+      };
+    });
+
+    const floorBox = document.getElementById("floors");
+    floors.forEach((f, i) => {
+      const b = document.createElement("button");
+      b.textContent = f.id;
+      b.onclick = () => pickFloor(i);
+      floorBox.appendChild(b);
+    });
+    function pickFloor(i) {
+      [...floorBox.children].forEach((b, idx) => b.classList.toggle("on", idx === i));
+      document.getElementById("floor-img").src = floors[i].img;
+      document.getElementById("floor-txt").innerHTML = "<b>" + floors[i].t + "</b><br>" + floors[i].d;
+    }
+    pickFloor(0);
+
+    function renderPlays(g) {
+      const box = document.getElementById("plays");
+      box.innerHTML = plays.filter(p => g === "all" || p.g === g).map(p =>
+        `<div class="play"><b>${p.n}</b><div>${p.s || "受欢迎度 " + p.h + "%"}</div><div class="hot"><i style="width:${p.h}%"></i></div></div>`
+      ).join("");
+    }
+    renderPlays("all");
+    document.querySelectorAll("#play-filters .chip").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll("#play-filters .chip").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        renderPlays(btn.dataset.play);
+      };
+    });
+
+    let step = 0, score = { hy: 0, srx: 0, xxb: 0 };
+    const grid = document.getElementById("q-grid");
+    const qLabel = document.getElementById("q-label");
+    const qResult = document.getElementById("q-result");
+    function drawQ() {
+      if (step >= quiz.length) {
+        const win = Object.entries(score).sort((a,b) => b[1]-a[1])[0][0];
+        grid.innerHTML = "";
+        qLabel.textContent = "选馆结果";
+        qResult.classList.add("on");
+        qResult.innerHTML = `<b>更适合：${names[win]}</b><p>${why[win]}</p><button class="btn solid" onclick="go('${win}')">查看该馆详情</button> <button class="btn ghost" onclick="resetQ()">重选</button>`;
+        return;
+      }
+      qResult.classList.remove("on");
+      qLabel.textContent = (step + 1) + " / 3 · " + quiz[step].q;
+      grid.innerHTML = "";
+      quiz[step].opts.forEach(o => {
+        const b = document.createElement("button");
+        b.textContent = o.t;
+        b.onclick = () => { score[o.v]++; step++; drawQ(); };
+        grid.appendChild(b);
+      });
+    }
+    function resetQ() { step = 0; score = { hy: 0, srx: 0, xxb: 0 }; drawQ(); }
+    drawQ();
+
+    function zoom(btn) {
+      const lb = document.getElementById("lightbox");
+      lb.querySelector("img").src = btn.querySelector("img").src;
+      lb.classList.add("on");
+    }
+    document.addEventListener("keydown", e => { if (e.key === "Escape") document.getElementById("lightbox").classList.remove("on"); });
+  </script>
+</body>
+</html>
